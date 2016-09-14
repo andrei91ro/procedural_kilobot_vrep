@@ -171,9 +171,6 @@ while (True):
             # increment the state counter
             robot.moveState += 1
 
-            if (robot.moveState > MoveState.st10_stop_white):
-                exit(0)
-
             logging.warning("robot.moveState = %d" % robot.moveState)
 
             if (robot.moveState == MoveState.st2_straight_green or
@@ -221,4 +218,9 @@ while (True):
             bridge.setState(robot.uid, robot.output_state["motion"], robot.output_state["led_rgb"])
 
     simStepNr += 1
+    if (robot.moveState >= MoveState.st10_stop_white):
+        break
 # end while
+
+# close the connection with v-rep
+bridge.close()
