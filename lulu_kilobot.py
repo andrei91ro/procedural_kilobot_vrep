@@ -168,6 +168,9 @@ while (True):
             # from Python DOCS: Return the value (in fractional seconds) of a performance counter, i.e. a clock with the highest available resolution to measure a short duration. It does include time elapsed during sleep and is system-wide. The reference point of the returned value is undefined, so that only the difference between the results of consecutive calls is valid.
             robot.responseTimer = time.perf_counter()
 
+            # schedule a new action
+            robot.timexp_moveTimer = time.perf_counter() + timer_interval
+
             # increment the state counter
             robot.moveState += 1
 
@@ -197,8 +200,6 @@ while (True):
                 robot.output_state["motion"] = vrep_bridge.Motion.stop
                 robot.output_state["led_rgb"] = vrep_bridge.Led_rgb.white
 
-            # schedule a new action
-            robot.timexp_moveTimer = time.perf_counter() + timer_interval
         #robot.procInputModule()
 
     # process output module for all robots
